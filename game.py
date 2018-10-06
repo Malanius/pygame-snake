@@ -1,6 +1,7 @@
 import pygame
 
 running = True
+count = 0
 
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((640,480))
@@ -12,8 +13,8 @@ surface = pygame.image.load("bg.png")
 character = pygame.image.load("character.png")
 
 SIZE = 20
-x = 1
-y = 2
+snake = [(10,2), (9,2), (8, 2)]
+dx, dy = 1, 0
 
 while running:
     # Event hadnling
@@ -24,22 +25,31 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
             elif event.key == pygame.K_LEFT:
-                x -= 1
+                dx, dy = -1, 0
             elif event.key == pygame.K_RIGHT:
-                x += 1
+                dx, dy = 1, 0
             elif event.key == pygame.K_UP:
-                y -= 1
+                dx, dy = 0, -1
             elif event.key == pygame.K_DOWN:
-                y += 1
+                dx, dy = 0, 1
     
+    # Step
+    if count == 30:
+        x, y = snake[0]
+        snake.insert (0, (x + dx, y + dy))
+        snake.pop()
+        count = 0
+
     # Prepare scene
     ##screen.fill((127,0,0))
-
     screen.blit(surface, (0,0))
-    screen.blit(character, (x * SIZE,y * SIZE))
+
+    for x, y in snake:
+        screen.blit(character, (x * SIZE,y * SIZE))
 
     # Update the rewritten screen
     pygame.display.update()
 
     # Cycle tick
     clock.tick(60)
+    count += 1
