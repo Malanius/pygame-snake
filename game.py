@@ -1,4 +1,5 @@
 import pygame
+import random
 
 SIZE = 20
 WIDTH = 32
@@ -16,9 +17,11 @@ surface = pygame.image.load("bg.png")
 
 # 20 x 20
 character = pygame.image.load("character.png")
+pickup = pygame.image.load("pickup.png")
 
 snake = [(10,2), (9,2), (8, 2)]
 dx, dy = 1, 0
+pickups = []
 
 while running:
     # Event hadnling
@@ -45,11 +48,18 @@ while running:
         dead = True
 
     # Step
-    if not dead and count == 10:
+    if not dead and count == 15:
         x, y = snake[0]
         snake.insert (0, (x + dx, y + dy))
         snake.pop()
+        snake[0]
         count = 0
+        # Picked?
+        if snake[0] in pickups:
+            pickups.remove(snake[0])
+        # Pickups generation
+        if len(pickups) < 3:
+            pickups.append((random.randrange(WIDTH), random.randrange(HEIGHT)))
 
     # Prepare scene
     ##screen.fill((127,0,0))
@@ -57,6 +67,9 @@ while running:
 
     for x, y in snake:
         screen.blit(character, (x * SIZE,y * SIZE))
+    
+    for x, y in pickups:
+        screen.blit(pickup, (x * SIZE,y * SIZE))
 
     # Update the rewritten screen
     pygame.display.update()
