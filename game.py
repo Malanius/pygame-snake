@@ -10,7 +10,10 @@ surface = pygame.image.load("bg.png")
 
 # 20 x 20
 character = pygame.image.load("character.png")
+
 SIZE = 20
+x = 1
+y = 2
 
 while running:
     # Event hadnling
@@ -25,7 +28,7 @@ while running:
     ##screen.fill((127,0,0))
 
     screen.blit(surface, (0,0))
-    screen.blit(character, (0,0))
+    screen.blit(character, (x * SIZE,y * SIZE))
 
     # Update the rewritten screen
     pygame.display.update()
