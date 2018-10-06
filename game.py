@@ -3,7 +3,14 @@ import pygame
 running = True
 
 clock = pygame.time.Clock()
-pygame.display.set_mode((640,480))
+screen = pygame.display.set_mode((640,480))
+
+# 640 x 480
+surface = pygame.image.load("bg.png")
+
+# 20 x 20
+character = pygame.image.load("character.png")
+SIZE = 20
 
 while running:
     # Event hadnling
@@ -13,5 +20,15 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
+    
+    # Prepare scene
+    ##screen.fill((127,0,0))
+
+    screen.blit(surface, (0,0))
+    screen.blit(character, (0,0))
+
+    # Update the rewritten screen
+    pygame.display.update()
+
     # Cycle tick
     clock.tick(60)
