@@ -57,6 +57,7 @@ while running:
         # Picked?
         if snake[0] in pickups:
             pickups.remove(snake[0])
+            snake.append((x + dx, y + dy))
         # Pickups generation
         if len(pickups) < 3:
             pickups.append((random.randrange(WIDTH), random.randrange(HEIGHT)))
