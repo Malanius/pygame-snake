@@ -47,6 +47,10 @@ while running:
     if not 0 <= y + dy < HEIGHT:
         dead = True
 
+    # Self collision check
+    if snake.__contains__((x + dx, y + dy)):
+        dead = True
+
     # Step
     if not dead and count == 15:
         x, y = snake[0]
