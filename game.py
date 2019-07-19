@@ -10,7 +10,7 @@ dead = False
 count = 0
 
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((WIDTH * SIZE,HEIGHT * SIZE))
+screen = pygame.display.set_mode((WIDTH * SIZE, HEIGHT * SIZE))
 
 # 640 x 480
 surface = pygame.image.load("bg.png")
@@ -19,7 +19,7 @@ surface = pygame.image.load("bg.png")
 character = pygame.image.load("character.png")
 pickup = pygame.image.load("pickup.png")
 
-snake = [(10,2), (9,2), (8, 2)]
+snake = [(10, 2), (9, 2), (8, 2)]
 dx, dy = 1, 0
 pickups = []
 
@@ -39,7 +39,7 @@ while running:
                 dx, dy = 0, -1
             elif event.key == pygame.K_DOWN:
                 dx, dy = 0, 1
-    
+
     # Boundary check
     x, y = snake[0]
     if not 0 <= x + dx < WIDTH:
@@ -54,7 +54,7 @@ while running:
     # Step
     if not dead and count == 15:
         x, y = snake[0]
-        snake.insert (0, (x + dx, y + dy))
+        snake.insert(0, (x + dx, y + dy))
         snake.pop()
         snake[0]
         count = 0
@@ -67,14 +67,14 @@ while running:
             pickups.append((random.randrange(WIDTH), random.randrange(HEIGHT)))
 
     # Prepare scene
-    ##screen.fill((127,0,0))
-    screen.blit(surface, (0,0))
+    # screen.fill((127,0,0))
+    screen.blit(surface, (0, 0))
 
     for x, y in snake:
-        screen.blit(character, (x * SIZE,y * SIZE))
-    
+        screen.blit(character, (x * SIZE, y * SIZE))
+
     for x, y in pickups:
-        screen.blit(pickup, (x * SIZE,y * SIZE))
+        screen.blit(pickup, (x * SIZE, y * SIZE))
 
     # Update the rewritten screen
     pygame.display.update()
